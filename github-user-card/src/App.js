@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import axios from 'axios';
+import FollowerList from './components/FollowerList';
 
 import "./App.css";
 
@@ -9,11 +10,13 @@ class App extends React.Component {
     super();
     this.state = {
       users: [],
+      followers: [],
     };
   }
 
   componentDidMount() {
     this.getUsers();
+    this.getFollowers();
   }
 
   getUsers = () => {
@@ -25,11 +28,23 @@ class App extends React.Component {
       });
   };
 
+  getFollowers = () => {
+    axios
+      .get('https://api.github.com/users/meganwhite/followers')
+      .then(response => this.setState({ followers: response.data }))
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   render() {
     return (
       <div>
         <h1>Github Users</h1>
-        <p>{this.state.users.name}</p>
+        <h2>{this.state.users.name}</h2>
+        <FollowerList 
+          followers = {this.state.followers}
+        />
       </div>
     );
   }
