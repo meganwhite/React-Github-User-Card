@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import axios from 'axios';
 import FollowerList from './components/FollowerList';
 
+
 import "./App.css";
 
 class App extends React.Component {
@@ -41,7 +42,10 @@ class App extends React.Component {
     return (
       <div>
         <h1>Github Users</h1>
-        <h2>{this.state.users.name}</h2>
+        <div className = 'user-card'>
+          <h2>{this.state.users.name}</h2>
+          <img src = {this.state.users.avatar_url} alt = "user avatar"/>
+        </div>
         <FollowerList 
           followers = {this.state.followers}
         />
